@@ -11,3 +11,5 @@ The scratchnet folder is divided into:
 - optimizers
 
 The root contains some example benchmarks.
+# Reference material
+["Neural Networks From Scratch" by Harrison Kinsley & Daniel Kukieła](https://nnfs.io/).
