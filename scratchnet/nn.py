@@ -1,5 +1,6 @@
 import scratchnet.layers.linear as ll
 
+# old code
 class nn:
 
     def __init__(self):
