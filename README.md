@@ -1,5 +1,5 @@
 # neural_networks_from_scratch
-Neural Networks from Scratch in Python
+## Neural Networks from Scratch in Python
 
 Repo containing introductory material (in Python language) for creating a neural network from scratch.
 
@@ -11,5 +11,5 @@ The scratchnet folder is divided into:
 - optimizers
 
 The root contains some example benchmarks.
-# Reference material
-["Neural Networks From Scratch" by Harrison Kinsley & Daniel Kukieła](https://nnfs.io/).
+## Reference material
+["Neural Networks From Scratch" by Harrison Kinsley & Daniel Kukieła](https://nnfs.io/)

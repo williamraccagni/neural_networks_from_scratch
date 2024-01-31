@@ -86,3 +86,32 @@ class Activation_Softmax_Loss_CategoricalCrossentropy():
         self.dinputs[range(samples), y_true] -= 1
         # Normalize gradient
         self.dinputs = self.dinputs / samples
+
+# Sigmoid activation
+class Activation_Sigmoid:
+
+    # Forward pass
+    def forward(self, inputs):
+        # Save input and calculate/save output
+        # of the sigmoid function
+        self.inputs = inputs
+        self.output = 1 / (1 + np.exp(-inputs))
+
+    # Backward pass
+    def backward(self, dvalues):
+        # Derivative - calculates from output of the sigmoid function
+        self.dinputs = dvalues * (1 - self.output) * self.output
+
+# Linear activation
+class Activation_Linear:
+
+    # Forward pass
+    def forward(self, inputs):
+        # Just remember values
+        self.inputs = inputs
+        self.output = inputs
+
+    # Backward pass
+    def backward(self, dvalues):
+        # derivative is 1, 1 * dvalues = dvalues - the chain rule
+        self.dinputs = dvalues.copy()
