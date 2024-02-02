@@ -19,6 +19,10 @@ class Activation_ReLU:
         # Zero gradient where input values were negative
         self.dinputs[self.inputs <= 0] = 0
 
+    # Calculate predictions for outputs
+    def predictions(self, outputs):
+        return outputs
+
 
 # Softmax activation
 class Activation_Softmax:
@@ -51,24 +55,28 @@ class Activation_Softmax:
             # and add it to the array of sample gradients
             self.dinputs[index] = np.dot(jacobian_matrix, single_dvalues)
 
+    # Calculate predictions for outputs
+    def predictions(self, outputs):
+        return np.argmax(outputs, axis=1)
+
 
 # Softmax classifier - combined Softmax activation
 # and cross-entropy loss for faster backward step
 class Activation_Softmax_Loss_CategoricalCrossentropy():
 
-    # Creates activation and loss function objects
-    def __init__(self):
-        self.activation = Activation_Softmax()
-        self.loss = Loss_CategoricalCrossentropy()
-
-    # Forward pass
-    def forward(self, inputs, y_true):
-        # Output layer's activation function
-        self.activation.forward(inputs)
-        # Set the output
-        self.output = self.activation.output
-        # Calculate and return loss value
-        return self.loss.calculate(self.output, y_true)
+    # # Creates activation and loss function objects
+    # def __init__(self):
+    #     self.activation = Activation_Softmax()
+    #     self.loss = Loss_CategoricalCrossentropy()
+    #
+    # # Forward pass
+    # def forward(self, inputs, y_true):
+    #     # Output layer's activation function
+    #     self.activation.forward(inputs)
+    #     # Set the output
+    #     self.output = self.activation.output
+    #     # Calculate and return loss value
+    #     return self.loss.calculate(self.output, y_true)
 
     # Backward pass
     def backward(self, dvalues, y_true):
@@ -77,8 +85,8 @@ class Activation_Softmax_Loss_CategoricalCrossentropy():
 
         # If labels are one-hot encoded,
         # turn them into discrete values
-        if len(y_true.shape) == 2:
-            y_true = np.argmax(y_true, axis=1)
+        # if len(y_true.shape) == 2:
+        #     y_true = np.argmax(y_true, axis=1)
 
         # Copy so we can safely modify
         self.dinputs = dvalues.copy()
@@ -102,6 +110,10 @@ class Activation_Sigmoid:
         # Derivative - calculates from output of the sigmoid function
         self.dinputs = dvalues * (1 - self.output) * self.output
 
+    # Calculate predictions for outputs
+    def predictions(self, outputs):
+        return (outputs > 0.5) * 1
+
 # Linear activation
 class Activation_Linear:
 
@@ -115,3 +127,7 @@ class Activation_Linear:
     def backward(self, dvalues):
         # derivative is 1, 1 * dvalues = dvalues - the chain rule
         self.dinputs = dvalues.copy()
+
+    # Calculate predictions for outputs
+    def predictions(self, outputs):
+        return outputs
