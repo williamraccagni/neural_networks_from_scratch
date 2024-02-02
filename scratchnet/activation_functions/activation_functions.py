@@ -4,7 +4,7 @@ from ..losses.CategoricalCrossEntropyLoss import Loss_CategoricalCrossentropy
 # ReLU activation
 class Activation_ReLU:
     # Forward pass
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         # Remember input values
         self.inputs = inputs
         # Calculate output values from inputs
@@ -27,7 +27,7 @@ class Activation_ReLU:
 # Softmax activation
 class Activation_Softmax:
     # Forward pass
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         # Remember input values
         self.inputs = inputs
 
@@ -99,7 +99,7 @@ class Activation_Softmax_Loss_CategoricalCrossentropy():
 class Activation_Sigmoid:
 
     # Forward pass
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         # Save input and calculate/save output
         # of the sigmoid function
         self.inputs = inputs
@@ -118,7 +118,7 @@ class Activation_Sigmoid:
 class Activation_Linear:
 
     # Forward pass
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         # Just remember values
         self.inputs = inputs
         self.output = inputs
