@@ -189,6 +189,43 @@ class Model:
                 self.loss.new_pass()
                 self.accuracy.new_pass()
 
+                # Iterate over steps
+                for step in range(validation_steps):
+
+                    # If batch size is not set -
+                    # train using one step and full dataset
+                    if batch_size is None:
+                        batch_X = X_val
+                        batch_y = y_val
+
+                    # Otherwise slice a batch
+                    else:
+                        batch_X = X_val[
+                              step * batch_size:(step + 1) * batch_size
+                        ]
+                        batch_y = y_val[
+                              step * batch_size:(step + 1) * batch_size
+                        ]
+
+                    # Perform the forward pass
+                    output = self.forward(batch_X, training=False)
+
+                    # Calculate the loss
+                    self.loss.calculate(output, batch_y)
+
+                    # Get predictions and calculate an accuracy
+                    predictions = self.output_layer_activation.predictions(output)
+                    self.accuracy.calculate(predictions, batch_y)
+
+                # Get and print validation loss and accuracy
+                validation_loss = self.loss.calculate_accumulated()
+                validation_accuracy = self.accuracy.calculate_accumulated()
+
+                # Print a summary
+                print(f'validation, ' +
+                      f'acc: {validation_accuracy:.3f}, ' +
+                      f'loss: {validation_loss:.3f}')
+
     # Performs forward pass
     def forward(self, X, training):
 
