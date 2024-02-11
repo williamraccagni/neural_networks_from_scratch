@@ -66,14 +66,14 @@ def download_dataset(url : str, file : str, folder : str):
 if __name__ == "__main__":
 
     URL = 'https://nnfs.io/datasets/fashion_mnist_images.zip'
-    FILE = 'fashion_mnist_images.zip'
+    FILE = '../fashion_mnist_images.zip'
     FOLDER = 'fashion_mnist_images'
 
     # Download Dataset
     if not os.path.isdir(FOLDER): download_dataset(URL, FILE, FOLDER)
 
     # Create dataset
-    X, y, X_test, y_test = create_data_mnist('fashion_mnist_images')
+    X, y, X_test, y_test = create_data_mnist('../fashion_mnist_images')
 
     # Shuffle the training dataset
     keys = np.array(range(X.shape[0]))
